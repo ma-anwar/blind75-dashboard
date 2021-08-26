@@ -5,7 +5,6 @@ import { Column, Row, Item } from "@mui-treasury/components/flex";
 
 const useStyles = makeStyles(() => ({
   card: {
-    width: "100%",
     borderRadius: 16,
     boxShadow: "0 8px 16px 0 #BDC9D7",
     overflow: "hidden",
@@ -21,8 +20,12 @@ const useStyles = makeStyles(() => ({
   },
   link: {
     color: "#2281bb",
-    padding: "0 0.25rem",
+    margin: "0 0rem 0 1rem",
     fontSize: "0.875rem",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    width: "50%",
   },
   actions: {
     color: "#BDC9D7",
@@ -37,8 +40,8 @@ export default function ProblemCard({ title, link }) {
   const styles = useStyles();
   return (
     <Column p={0} gap={0} className={styles.card}>
-      <Row wrap p={2} alignItems={"baseline"} className={styles.header}>
-        <Item stretched className={styles.headline}>
+      <Row wrap p={1} alignItems={"baseline"} className={styles.header}>
+        <Item stretched className={styles.headline} textOverflow="ellipsis">
           <Link className={styles.link} href={link}>
             {title}
           </Link>
