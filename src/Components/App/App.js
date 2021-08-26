@@ -1,5 +1,4 @@
 import "./App.css";
-import "@fontsource/roboto";
 import { Paper, Typography } from "@material-ui/core/";
 import LoginButton from "../LoginButton/LoginButton";
 import ProblemCard from "../ProblemCard/ProblemCard";
