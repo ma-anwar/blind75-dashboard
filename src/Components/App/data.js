@@ -381,3 +381,16 @@ export const problems = [
     title: "Find Median from Data Stream",
   },
 ];
+
+export const categories = [
+  "heap",
+  "array",
+  "tree",
+  "string",
+  "matrix",
+  "graph",
+  "interval",
+  "linked list",
+  "binary",
+  "dynamic programming",
+];
