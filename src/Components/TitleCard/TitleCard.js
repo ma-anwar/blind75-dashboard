@@ -31,12 +31,12 @@ const useStyles = makeStyles(() => ({
   },
   divider: {
     backgroundColor: "#d9e2ee",
-    margin: "0 20px",
+    margin: "0 1px",
   },
 }));
 
 export default function TitleCard({ title }) {
-  function generateProblems() {
+  function getProblems() {
     const items = problems.reduce((filtered, item) => {
       if (item.category === title) {
         filtered.push(item);
@@ -45,18 +45,21 @@ export default function TitleCard({ title }) {
     }, []);
     return items;
   }
+  function getTitle(title) {
+    return title.charAt(0).toUpperCase() + title.slice(1) + " Problems";
+  }
   const styles = useStyles();
   return (
-    <Column p={0} gap={0} className={styles.card}>
+    <Column p={0} gap={0} className={styles.card} m={1}>
       <Row wrap p={2} alignItems={"baseline"} className={styles.header}>
         <Item stretched className={styles.headline}>
-          {title}
+          {getTitle(title)}
         </Item>
         <Item className={styles.actions}>
           <Link className={styles.link}>Hide</Link>
         </Item>
       </Row>
-      {generateProblems().map((problem, i) => (
+      {getProblems().map((problem, i) => (
         <div>
           <ProblemCard link={problem.link} title={problem.title} />
           <Divider variant={"middle"} className={styles.divider} />
