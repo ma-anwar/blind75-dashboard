@@ -18,6 +18,10 @@ const useStyles = makeStyles(() => ({
 
 function App() {
   const styles = useStyles();
+  const breakpointObject = {
+    default: 3,
+    700: 1,
+  };
   return (
     <div className="App">
       <Paper>
@@ -26,7 +30,7 @@ function App() {
         </Typography>
         <LoginButton />
         <Masonry
-          breakpointCols={3}
+          breakpointCols={breakpointObject}
           className={styles.masonryGrid}
           columnClassName={styles.masonryColumn}>
           {categories.map((category, i) => (
