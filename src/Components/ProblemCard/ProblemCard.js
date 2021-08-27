@@ -1,7 +1,6 @@
-import { Checkbox, FormControlLabel } from "@material-ui/core";
+import { Checkbox, FormControlLabel, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
-import { Column, Row, Item } from "@mui-treasury/components/flex";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -20,12 +19,11 @@ const useStyles = makeStyles(() => ({
   },
   link: {
     color: "#2281bb",
-    margin: "0 0rem 0 1rem",
+    margin: "0.9rem 1rem 0 1rem",
     fontSize: "0.875rem",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
-    width: "50%",
   },
   actions: {
     color: "#BDC9D7",
@@ -39,19 +37,18 @@ const useStyles = makeStyles(() => ({
 export default function ProblemCard({ title, link }) {
   const styles = useStyles();
   return (
-    <Column p={0} gap={0} className={styles.card}>
-      <Row wrap p={1} alignItems={"baseline"} className={styles.header}>
-        <Item stretched className={styles.headline} textOverflow="ellipsis">
-          <Link className={styles.link} href={link}>
-            {title}
-          </Link>
-        </Item>
-        <Item className={styles.actions}>
-          <FormControlLabel
-            control={<Checkbox name="checkedB" color="primary" />}
-          />
-        </Item>
-      </Row>
-    </Column>
+    <Box
+      component="span"
+      display="flex"
+      justifyContent="space-between"
+      className={styles.header}>
+      <Link noWrap={true} className={styles.link} href={link}>
+        {title}
+      </Link>
+      <FormControlLabel
+        className={styles.actions}
+        control={<Checkbox name="checkedB" color="primary" />}
+      />
+    </Box>
   );
 }

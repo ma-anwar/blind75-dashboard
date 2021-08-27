@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
   },
   masonryColumn: {
-    paddingLeft: "15px" /* gutter size */,
+    paddingLeft: "5px" /* gutter size */,
     backgroundClip: "padding-box",
   },
   heading: {
