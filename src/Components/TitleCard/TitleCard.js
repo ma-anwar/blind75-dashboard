@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
 
 
 export default function TitleCard({ title }) {
-  const [hide, setHide]=useState(true)
+  const [hide, setHide]=useState(false)
   const toggleHide = () => {setHide(!hide)}
   function getProblems() {
     const items = problems.reduce((filtered, item) => {
@@ -57,11 +57,11 @@ export default function TitleCard({ title }) {
         <Typography variant="h6" noWrap className={styles.header}>
           {getTitle(title)}{" "}
         </Typography>
-        <button onClick={() => toggleHide()}>Hide</button>
+        <button onClick={() => toggleHide()}>{hide?"Show":"Hide"}</button>
       </Box>
       {getProblems().map((problem, i) => (
         <div>
-          {hide && <ProblemCard link={problem.link} title={problem.title} />}
+          {!hide && <ProblemCard link={problem.link} title={problem.title} />}
           <Divider variant={"middle"} className={styles.divider} />
         </div>
       ))}
