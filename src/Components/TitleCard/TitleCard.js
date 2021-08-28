@@ -62,7 +62,7 @@ export default function TitleCard({ title }) {
       {getProblems().map((problem, i) => (
         <div>
           {!hide && <ProblemCard link={problem.link} title={problem.title} />}
-          <Divider variant={"middle"} className={styles.divider} />
+          {!hide && <Divider variant={"middle"} className={styles.divider} />}
         </div>
       ))}
     </Box>
