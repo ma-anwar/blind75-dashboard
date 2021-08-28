@@ -1,6 +1,7 @@
 import { Checkbox, FormControlLabel, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
+import React, {useState} from 'react';
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -25,6 +26,15 @@ const useStyles = makeStyles(() => ({
     overflow: "hidden",
     textOverflow: "ellipsis",
   },
+  clicked_link: {
+    color: "#808080",
+    margin: "0.9rem 1rem 0 1rem",
+    fontSize: "0.875rem",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    textDecoration: "line-through",
+  },
   actions: {
     color: "#BDC9D7",
   },
@@ -36,18 +46,20 @@ const useStyles = makeStyles(() => ({
 
 export default function ProblemCard({ title, link }) {
   const styles = useStyles();
+  const [checked, setChecked]=useState(false)
   return (
     <Box
       component="span"
       display="flex"
       justifyContent="space-between"
       className={styles.header}>
-      <Link noWrap={true} className={styles.link} href={link}>
+      <Link noWrap={true} className={checked?styles.clicked_link:styles.link} href={link}>
         {title}
       </Link>
       <FormControlLabel
         className={styles.actions}
-        control={<Checkbox name="checkedB" color="primary" />}
+        control={<Checkbox name="checkedB" color="primary" 
+        onClick= {() => setChecked(!checked)} />}
       />
     </Box>
   );
