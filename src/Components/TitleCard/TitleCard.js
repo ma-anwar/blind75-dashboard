@@ -57,11 +57,7 @@ export default function TitleCard({ title }) {
         <Typography variant="h6" noWrap className={styles.header}>
           {getTitle(title)}{" "}
         </Typography>
-        <button onClick={() => toggleHide()}>
-
-            Click to hide component
-
-          </button>
+        <button onClick={() => toggleHide()}>Hide</button>
       </Box>
       {getProblems().map((problem, i) => (
         <div>
