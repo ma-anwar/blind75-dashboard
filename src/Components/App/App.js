@@ -5,6 +5,7 @@ import TitleCard from "../TitleCard/TitleCard";
 import { categories } from "./data";
 import { makeStyles } from "@material-ui/core/styles";
 import Masonry from "react-masonry-css";
+import React, { useEffect } from 'react'
 
 const useStyles = makeStyles(() => ({
   masonryGrid: {
@@ -21,6 +22,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 function App() {
+  useEffect(() => {
+    document.title = "Blind-75"
+  }, [])
   const styles = useStyles();
   const breakpointObject = {
     default: 3,
