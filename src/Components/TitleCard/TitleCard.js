@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Link, Divider, Typography } from "@material-ui/core";
 import ProblemCard from "../ProblemCard/ProblemCard";
@@ -31,7 +32,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+
+
+
 export default function TitleCard({ title }) {
+  const [hide, setHide]=useState(true)
+  const toggleHide = () => {setHide(!hide)}
   function getProblems() {
     const items = problems.reduce((filtered, item) => {
       if (item.category === title) {
@@ -51,11 +57,15 @@ export default function TitleCard({ title }) {
         <Typography variant="h6" noWrap className={styles.header}>
           {getTitle(title)}{" "}
         </Typography>
-        <Link className={styles.link}>Hide</Link>
+        <button onClick={() => toggleHide()}>
+
+            Click to hide component
+
+          </button>
       </Box>
       {getProblems().map((problem, i) => (
         <div>
-          <ProblemCard link={problem.link} title={problem.title} />
+          {hide && <ProblemCard link={problem.link} title={problem.title} />}
           <Divider variant={"middle"} className={styles.divider} />
         </div>
       ))}
