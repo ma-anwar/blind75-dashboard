@@ -1,43 +1,14 @@
-import React, {useState} from 'react';
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
 import { Box, Link, Divider, Typography } from "@material-ui/core";
 import ProblemCard from "../ProblemCard/ProblemCard";
 import { problems } from "../App/data";
-
-const useStyles = makeStyles(() => ({
-  card: {
-    borderRadius: 12,
-    boxShadow: "0 4px 10px 0 #BDC9D7",
-    overflow: "hidden",
-  },
-  header: {
-    fontFamily: "Barlow, san-serif",
-    backgroundColor: "#fff",
-    color: "#122740",
-    fontSize: "1.25rem",
-    fontWeight: 600,
-  },
-  headline: {},
-  link: {
-    color: "#2281bb",
-    padding: "0 0.25rem",
-    fontSize: "0.875rem",
-  },
-  actions: {
-    color: "#BDC9D7",
-  },
-  divider: {
-    backgroundColor: "#d9e2ee",
-    margin: "0 1px",
-  },
-}));
-
-
-
+import { useStyles } from "./TitleCardStyles";
 
 export default function TitleCard({ title }) {
-  const [hide, setHide]=useState(false)
-  const toggleHide = () => {setHide(!hide)}
+  const [hide, setHide] = useState(false);
+  const toggleHide = () => {
+    setHide(!hide);
+  };
   function getProblems() {
     const items = problems.reduce((filtered, item) => {
       if (item.category === title) {
@@ -57,7 +28,7 @@ export default function TitleCard({ title }) {
         <Typography variant="h6" noWrap className={styles.header}>
           {getTitle(title)}{" "}
         </Typography>
-        <button onClick={() => toggleHide()}>{hide?"Show":"Hide"}</button>
+        <button onClick={() => toggleHide()}>{hide ? "Show" : "Hide"}</button>
       </Box>
       {getProblems().map((problem, i) => (
         <div>
