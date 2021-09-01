@@ -31,9 +31,9 @@ export default function TitleCard({ title }) {
         <button onClick={() => toggleHide()}>{hide ? "Show" : "Hide"}</button>
       </Box>
       {getProblems().map((problem, i) => (
-        <div>
-          {!hide && <ProblemCard link={problem.link} title={problem.title} />}
-          {!hide && <Divider variant={"middle"} className={styles.divider} />}
+        <div className={hide? styles.hidden : null}>
+          {<ProblemCard link={problem.link} title={problem.title} />}
+          {<Divider variant={"middle"} className={styles.divider} />}
         </div>
       ))}
     </Box>
