@@ -3,9 +3,13 @@ import LoginButton from "../LoginButton/LoginButton";
 import TitleCard from "../TitleCard/TitleCard";
 import { categories } from "./data";
 import Masonry from "react-masonry-css";
+import React, { useEffect } from 'react'
 import { useStyles } from "./AppStyles.js";
 
 function App() {
+  useEffect(() => {
+    document.title = "Blind-75"
+  }, [])
   const styles = useStyles();
   const breakpointObject = {
     default: 3,
