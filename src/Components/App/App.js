@@ -1,25 +1,10 @@
-import "./App.css";
 import { Paper, Typography, Box } from "@material-ui/core/";
 import LoginButton from "../LoginButton/LoginButton";
 import TitleCard from "../TitleCard/TitleCard";
 import { categories } from "./data";
-import { makeStyles } from "@material-ui/core/styles";
 import Masonry from "react-masonry-css";
 import React, { useEffect } from 'react'
-
-const useStyles = makeStyles(() => ({
-  masonryGrid: {
-    display: "flex",
-  },
-  masonryColumn: {
-    paddingLeft: "5px" /* gutter size */,
-    backgroundClip: "padding-box",
-  },
-  heading: {
-    display: "flex",
-    justifyContent: "center",
-  },
-}));
+import { useStyles } from "./AppStyles.js";
 
 function App() {
   useEffect(() => {
