@@ -26,4 +26,8 @@ export const useStyles = makeStyles(() => ({
     backgroundColor: "#d9e2ee",
     margin: "0 1px",
   },
+  hidden: { 
+    display: "none", 
+  },
+
 }));
