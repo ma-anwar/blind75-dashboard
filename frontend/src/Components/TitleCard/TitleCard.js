@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Box, Link, Divider, Typography } from "@material-ui/core";
+import { Box, Divider, Typography } from "@material-ui/core";
 import ProblemCard from "../ProblemCard/ProblemCard";
-import { problems } from "../App/data";
 import { useStyles } from "./TitleCardStyles";
 
-export default function TitleCard({ title }) {
+export default function TitleCard({ title, problems }) {
   const [hide, setHide] = useState(false);
   const toggleHide = () => {
     setHide(!hide);
@@ -30,9 +29,15 @@ export default function TitleCard({ title }) {
         </Typography>
         <button onClick={() => toggleHide()}>{hide ? "Show" : "Hide"}</button>
       </Box>
-      {getProblems().map((problem, i) => (
-        <div className={hide? styles.hidden : null}>
-          {<ProblemCard link={problem.link} title={problem.title} />}
+      {getProblems().map((problem) => (
+        <div className={hide ? styles.hidden : null}>
+          {
+            <ProblemCard
+              link={problem.link}
+              title={problem.title}
+              completed={problem.completed}
+            />
+          }
           {<Divider variant={"middle"} className={styles.divider} />}
         </div>
       ))}

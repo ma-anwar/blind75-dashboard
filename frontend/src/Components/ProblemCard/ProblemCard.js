@@ -1,11 +1,41 @@
 import { Checkbox, FormControlLabel, Box } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { useStyles } from "./ProblemCardStyles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
-export default function ProblemCard({ title, link }) {
+export default function ProblemCard({ title, link, completed }) {
   const styles = useStyles();
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(completed);
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+
+  function handleClick() {
+    setChecked(!checked);
+    if (isAuthenticated) fetchData();
+  }
+
+  async function fetchData() {
+    const method = checked === false ? "POST" : "DELETE";
+    const body = `{ "title": "${title}" }`;
+    try {
+      const accessToken = await getAccessTokenSilently({
+        audience: `https://b75db`,
+      });
+      const endpoint = `http://localhost:4001/api/v1/user/`;
+
+      fetch(endpoint, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        method: method,
+        body: body,
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
   return (
     <Box
       component="span"
@@ -24,7 +54,8 @@ export default function ProblemCard({ title, link }) {
           <Checkbox
             name="checkedB"
             color="primary"
-            onClick={() => setChecked(!checked)}
+            checked={checked}
+            onClick={() => handleClick()}
           />
         }
       />
