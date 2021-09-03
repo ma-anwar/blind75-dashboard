@@ -5,6 +5,8 @@ A dashboard to monitor progress and completion of the [blind75 leetcode question
 The app is using a MERN stack.
 The frontend is in React, the backend is using Node.js, Express and connects to a cloud instance of MongoDB.
 
+The backend is based off the boilerplate [here](https://github.com/drejcreative/mern-boilerplate-2020).
+
 ## Setup 
 After cloning the repo run `yarn install` in the frontend and backend folders.
 
