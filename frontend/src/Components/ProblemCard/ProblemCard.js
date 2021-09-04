@@ -1,13 +1,14 @@
-import { Checkbox, FormControlLabel, Box } from "@material-ui/core";
-import Link from "@material-ui/core/Link";
-import { useStyles } from "./ProblemCardStyles";
-import { useState, useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Checkbox, FormControlLabel, Box } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
+import { useStyles } from './ProblemCardStyles';
+import { useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function ProblemCard({ title, link, completed }) {
   const styles = useStyles();
   const [checked, setChecked] = useState(completed);
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, getAccessTokenWithPopup } =
+    useAuth0();
 
   function handleClick() {
     setChecked(!checked);
@@ -15,7 +16,7 @@ export default function ProblemCard({ title, link, completed }) {
   }
 
   async function fetchData() {
-    const method = checked === false ? "POST" : "DELETE";
+    const method = checked === false ? 'POST' : 'DELETE';
     const body = `{ "title": "${title}" }`;
     try {
       const accessToken = await getAccessTokenSilently({
@@ -26,7 +27,7 @@ export default function ProblemCard({ title, link, completed }) {
       fetch(endpoint, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         method: method,
         body: body,
@@ -41,11 +42,13 @@ export default function ProblemCard({ title, link, completed }) {
       component="span"
       display="flex"
       justifyContent="space-between"
-      className={styles.header}>
+      className={styles.header}
+    >
       <Link
         noWrap={true}
         className={checked ? styles.clicked_link : styles.link}
-        href={link}>
+        href={link}
+      >
         {title}
       </Link>
       <FormControlLabel

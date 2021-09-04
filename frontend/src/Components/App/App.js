@@ -1,21 +1,21 @@
-import { Paper, Typography } from "@material-ui/core/";
-import LoginButton from "../LoginButton/LoginButton";
-import TitleCard from "../TitleCard/TitleCard";
-import { categories } from "./data";
-import Masonry from "react-masonry-css";
-import React, { useEffect, useState } from "react";
-import { useStyles } from "./AppStyles.js";
-import { problems } from "../App/data";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Paper, Typography } from '@material-ui/core/';
+import LoginButton from '../LoginButton/LoginButton';
+import TitleCard from '../TitleCard/TitleCard';
+import { categories } from './data';
+import Masonry from 'react-masonry-css';
+import React, { useEffect, useState } from 'react';
+import { useStyles } from './AppStyles.js';
+import { problems } from '../App/data';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isLoading, isAuthenticated, getAccessTokenWithPopup } = useAuth0();
   const [data, setData] = useState([]);
 
   useEffect(() => {
     async function getCompletedProblems() {
       try {
-        const accessToken = await getAccessTokenSilently({
+        const accessToken = await getAccessTokenWithPopup({
           audience: `https://b75db`,
         });
         const endpoint = `http://localhost:4001/api/v1/user/`;
@@ -24,7 +24,7 @@ function App() {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-          method: "GET",
+          method: 'GET',
         });
 
         const responseBody = await response.json();
@@ -36,21 +36,23 @@ function App() {
     }
 
     (async function generateProblemSet() {
-      console.log("Running");
+      console.log('Running');
       const completedProblems = await getCompletedProblems();
       if (!completedProblems) {
         setData(problems.map((item) => ({ ...item, completed: false })));
-        console.log("failed");
+        console.log('failed');
         return;
       }
+      console.log(completedProblems);
 
       const problemSet = await problems.map((item) => ({
         ...item,
         completed: completedProblems.problems.includes(item.title),
       }));
+      console.log(problemSet);
       setData(problemSet);
     })();
-  }, [getAccessTokenSilently]);
+  }, [getAccessTokenWithPopup]);
 
   const styles = useStyles();
   const breakpointObject = {
@@ -69,7 +71,8 @@ function App() {
         <Masonry
           breakpointCols={breakpointObject}
           className={styles.masonryGrid}
-          columnClassName={styles.masonryColumn}>
+          columnClassName={styles.masonryColumn}
+        >
           {categories.map((category, i) => (
             <TitleCard title={category} problems={data} />
           ))}
