@@ -1,20 +1,17 @@
-const { restart } = require('nodemon');
-const User = require('../models/userModel');
+const { restart } = require("nodemon");
+const User = require("../models/userModel");
 
 // @desc   Get all problems
 // @route  GET /api/v1/problem
 exports.getProblems = async (req, res, next) => {
   //sub is part of the decoded jwt and represents a uid, used as primary key for now
-  console.log(req.user);
   const key = { uid: req.user.sub };
-  const selector = 'problems';
+  const selector = "problems";
   try {
-    const user = await User.find(key, selector).exec();
-    console.log(typeof user.problems);
-    console.log(user);
+    const user = await User.findOne(key, selector).exec();
     const problems =
-      user[0] && typeof user[0].problems !== 'undefined'
-        ? user[0].problems.map((problem) => problem.title)
+      user && typeof user.problems !== "undefined"
+        ? user.problems.map((problem) => problem.title)
         : [];
     return res.status(200).json({
       success: true,
@@ -24,7 +21,7 @@ exports.getProblems = async (req, res, next) => {
     console.log(error);
     return res.status(500).json({
       success: false,
-      error: 'Internal Error',
+      error: "Internal Error",
     });
   }
 };
@@ -35,7 +32,7 @@ exports.addProblem = async (req, res, next) => {
   const key = { uid: req.user.sub };
   const data = { $push: { problems: { title: req.body.title } } };
   try {
-    const user = await User.updateOne(key, data, { upsert: 'true' });
+    const user = await User.updateOne(key, data, { upsert: "true" });
     return res.status(201).json({
       success: true,
       data: user,
@@ -44,7 +41,7 @@ exports.addProblem = async (req, res, next) => {
     console.log(error);
     return res.status(500).json({
       success: false,
-      error: 'Internal Error',
+      error: "Internal Error",
     });
   }
 };
@@ -55,7 +52,7 @@ exports.deleteProblem = async (req, res, next) => {
   const key = { uid: req.user.sub };
   const data = { $pull: { problems: { title: req.body.title } } };
   try {
-    const user = await User.updateOne(key, data, { upsert: 'true' });
+    const user = await User.updateOne(key, data, { upsert: "true" });
     return res.status(200).json({
       success: true,
       data: user,
@@ -64,7 +61,7 @@ exports.deleteProblem = async (req, res, next) => {
     console.log(error);
     return res.status(500).json({
       success: false,
-      error: 'Internal Error',
+      error: "Internal Error",
     });
   }
 };
