@@ -9,15 +9,13 @@ import { problems } from "../App/data";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenWithPopup } = useAuth0();
   const [data, setData] = useState([]);
 
   useEffect(() => {
     async function getCompletedProblems() {
       try {
-        const accessToken = await getAccessTokenSilently({
-          audience: `https://b75db`,
-        });
+        const accessToken = await getAccessTokenWithPopup();
         const endpoint = `http://localhost:4001/api/v1/user/`;
 
         const response = await fetch(endpoint, {
@@ -27,8 +25,7 @@ function App() {
           method: "GET",
         });
 
-        const responseBody = await response.json();
-        return responseBody;
+        return await response.json();
       } catch (error) {
         console.log(error.message);
         return null;
@@ -36,21 +33,22 @@ function App() {
     }
 
     (async function generateProblemSet() {
-      console.log("Running");
       const completedProblems = await getCompletedProblems();
       if (!completedProblems) {
         setData(problems.map((item) => ({ ...item, completed: false })));
         console.log("failed");
         return;
       }
+      console.log(completedProblems);
 
       const problemSet = await problems.map((item) => ({
         ...item,
         completed: completedProblems.problems.includes(item.title),
       }));
+      console.log(problemSet);
       setData(problemSet);
     })();
-  }, [getAccessTokenSilently]);
+  }, [getAccessTokenWithPopup]);
 
   const styles = useStyles();
   const breakpointObject = {

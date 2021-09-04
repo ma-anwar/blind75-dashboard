@@ -1,15 +1,18 @@
+const { restart } = require("nodemon");
 const User = require("../models/userModel");
 
 // @desc   Get all problems
 // @route  GET /api/v1/problem
 exports.getProblems = async (req, res, next) => {
   //sub is part of the decoded jwt and represents a uid, used as primary key for now
-
   const key = { uid: req.user.sub };
   const selector = "problems";
   try {
-    const user = await User.find(key, selector).exec();
-    const problems = user[0].problems.map((problem) => problem.title);
+    const user = await User.findOne(key, selector).exec();
+    const problems =
+      user && typeof user.problems !== "undefined"
+        ? user.problems.map((problem) => problem.title)
+        : [];
     return res.status(200).json({
       success: true,
       problems: problems,

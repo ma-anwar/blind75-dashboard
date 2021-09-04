@@ -1,7 +1,7 @@
 import { Checkbox, FormControlLabel, Box } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { useStyles } from "./ProblemCardStyles";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function ProblemCard({ title, link, completed }) {
@@ -18,9 +18,7 @@ export default function ProblemCard({ title, link, completed }) {
     const method = checked === false ? "POST" : "DELETE";
     const body = `{ "title": "${title}" }`;
     try {
-      const accessToken = await getAccessTokenSilently({
-        audience: `https://b75db`,
-      });
+      const accessToken = await getAccessTokenSilently();
       const endpoint = `http://localhost:4001/api/v1/user/`;
 
       fetch(endpoint, {
