@@ -1,5 +1,5 @@
 import { Paper, Typography } from "@material-ui/core/";
-import LoginButton from "../LoginButton/LoginButton";
+import AppBar from "../AppBar/AppBar";
 import TitleCard from "../TitleCard/TitleCard";
 import { categories } from "./data";
 import Masonry from "react-masonry-css";
@@ -9,10 +9,14 @@ import { problems } from "../App/data";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
-  const { getAccessTokenWithPopup } = useAuth0();
+  const { getAccessTokenWithPopup, isAuthenticated, isLoading } = useAuth0();
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    if (isLoading || !isAuthenticated) {
+      setData(problems.map((item) => ({ ...item, completed: false })));
+      return;
+    }
     async function getCompletedProblems() {
       try {
         const accessToken = await getAccessTokenWithPopup();
@@ -48,7 +52,7 @@ function App() {
       console.log(problemSet);
       setData(problemSet);
     })();
-  }, [getAccessTokenWithPopup]);
+  }, [getAccessTokenWithPopup, isAuthenticated, isLoading]);
 
   const styles = useStyles();
   const breakpointObject = {
@@ -59,11 +63,8 @@ function App() {
 
   return (
     <div className="App">
+      <AppBar />
       <Paper>
-        <Typography className={styles.heading}>
-          <h1>Blind 75 Leetcode </h1>
-        </Typography>
-        <LoginButton />
         <Masonry
           breakpointCols={breakpointObject}
           className={styles.masonryGrid}
