@@ -3,11 +3,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "@material-ui/core/";
 
 const LoginButton = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
 
   return (
-    <Button onClick={() => loginWithRedirect()} disableElevation>
-      Log In
+    <Button onClick={() => logout()} disableElevation>
+      Log Out
     </Button>
   );
 };
