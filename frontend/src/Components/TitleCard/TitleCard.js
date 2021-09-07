@@ -5,9 +5,12 @@ import { useStyles } from "./TitleCardStyles";
 
 export default function TitleCard({ title, problems }) {
   const [hide, setHide] = useState(false);
+  const styles = useStyles();
+
   const toggleHide = () => {
     setHide(!hide);
   };
+
   function getProblems() {
     const items = problems.reduce((filtered, item) => {
       if (item.category === title) {
@@ -17,10 +20,11 @@ export default function TitleCard({ title, problems }) {
     }, []);
     return items;
   }
+
   function getTitle(title) {
     return title.charAt(0).toUpperCase() + title.slice(1) + " Problems";
   }
-  const styles = useStyles();
+
   return (
     <Box m={2} className={styles.card}>
       <Box display="flex" mx={1} mt={1} justifyContent="space-between">
@@ -36,6 +40,7 @@ export default function TitleCard({ title, problems }) {
               link={problem.link}
               title={problem.title}
               completed={problem.completed}
+              key={problem.title}
             />
           }
           {<Divider variant={"middle"} className={styles.divider} />}

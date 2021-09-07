@@ -40,7 +40,6 @@ function App() {
       const completedProblems = await getCompletedProblems();
       if (!completedProblems) {
         setData(problems.map((item) => ({ ...item, completed: false })));
-        console.log("failed");
         return;
       }
       console.log(completedProblems);
@@ -69,8 +68,8 @@ function App() {
           breakpointCols={breakpointObject}
           className={styles.masonryGrid}
           columnClassName={styles.masonryColumn}>
-          {categories.map((category, i) => (
-            <TitleCard title={category} problems={data} />
+          {categories.map((category) => (
+            <TitleCard title={category} problems={data} key={category} />
           ))}
         </Masonry>
       </Paper>
