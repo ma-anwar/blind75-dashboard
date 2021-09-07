@@ -22,7 +22,9 @@ export default function ProblemCard({ title, link, completed }) {
     const method = checked === false ? "POST" : "DELETE";
     const body = `{ "title": "${title}" }`;
     try {
-      const accessToken = await getAccessTokenSilently();
+      const accessToken = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_API_AUDIENCE,
+      });
       const endpoint = `http://localhost:4001/api/v1/user/`;
 
       fetch(endpoint, {

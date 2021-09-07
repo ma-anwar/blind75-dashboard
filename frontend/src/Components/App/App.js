@@ -19,7 +19,9 @@ function App() {
     }
     async function getCompletedProblems() {
       try {
-        const accessToken = await getAccessTokenWithPopup();
+        const accessToken = await getAccessTokenWithPopup({
+          audience: process.env.REACT_APP_API_AUDIENCE,
+        });
         const endpoint = `http://localhost:4001/api/v1/user/`;
 
         const response = await fetch(endpoint, {
