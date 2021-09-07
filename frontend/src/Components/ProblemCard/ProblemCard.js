@@ -1,13 +1,17 @@
 import { Checkbox, FormControlLabel, Box } from "@material-ui/core";
 import Link from "@material-ui/core/Link";
 import { useStyles } from "./ProblemCardStyles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function ProblemCard({ title, link, completed }) {
   const styles = useStyles();
   const [checked, setChecked] = useState(completed);
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    setChecked(completed);
+  }, [completed]);
 
   function handleClick() {
     setChecked(!checked);
