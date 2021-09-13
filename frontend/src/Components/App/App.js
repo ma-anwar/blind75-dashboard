@@ -22,7 +22,7 @@ function App() {
         const accessToken = await getAccessTokenWithPopup({
           audience: process.env.REACT_APP_API_AUDIENCE,
         });
-        const endpoint = `http://localhost:4001/api/v1/user/`;
+        const endpoint = `/api/v1/user/`;
 
         const response = await fetch(endpoint, {
           headers: {

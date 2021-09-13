@@ -26,6 +26,9 @@ dotenv.config({ path: "./config/config.env" });
   app.use(checkJwt);
   app.use("/api/v1/user", user);
 
+  const HOST = process.env.HOST || "localhost";
   const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => console.log(`Server started on port ${PORT} 🚀🚀🚀`));
+  app.listen(PORT, HOST, () =>
+    console.log(`Server started on port ${PORT} 🚀🚀🚀`)
+  );
 })();

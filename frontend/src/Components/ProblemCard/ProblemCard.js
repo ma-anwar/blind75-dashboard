@@ -25,7 +25,7 @@ export default function ProblemCard({ title, link, completed }) {
       const accessToken = await getAccessTokenSilently({
         audience: process.env.REACT_APP_API_AUDIENCE,
       });
-      const endpoint = `http://localhost:4001/api/v1/user/`;
+      const endpoint = `/api/v1/user/`;
 
       fetch(endpoint, {
         headers: {
