@@ -2,12 +2,15 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    const database = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-    });
+    const database = await mongoose.connect(
+      `mongodb://${process.env.MONGO_HOST}`,
+      {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+      }
+    );
     mongoose.connection.on("disconnect", handleDisconnect);
     mongoose.connection.on("error", handleDisconnect);
 
